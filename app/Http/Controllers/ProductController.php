@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\ProductResource;
 use App\Models\Product;
 use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
@@ -13,7 +14,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        return Product::with('stocks')->cursorPaginate(25);
+        return ProductResource::collection(Product::cursorPaginate(25));
     }
 
     public function store(StoreProductRequest $request)
