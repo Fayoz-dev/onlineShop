@@ -8,12 +8,10 @@ use App\Http\Requests\UpdatePaymentTypeRequest;
 
 class PaymentTypeController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+
     public function index()
     {
-        //
+        return PaymentType::all();
     }
 
     /**

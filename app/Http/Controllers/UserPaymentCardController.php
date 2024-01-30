@@ -2,16 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\DeliveryMethod;
-use App\Http\Requests\StoreDeliveryMethodRequest;
-use App\Http\Requests\UpdateDeliveryMethodRequest;
+use App\Models\UserPaymentCard;
+use App\Http\Requests\StoreUserPaymentCardRequest;
+use App\Http\Requests\UpdateUserPaymentCardRequest;
 
-class DeliveryMethodController extends Controller
+class UserPaymentCardController extends Controller
 {
-
+    /**
+     * Display a listing of the resource.
+     */
     public function index()
     {
-      return DeliveryMethod::all();
+        //
     }
 
     /**
@@ -25,7 +27,7 @@ class DeliveryMethodController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreDeliveryMethodRequest $request)
+    public function store(StoreUserPaymentCardRequest $request)
     {
         //
     }
@@ -33,7 +35,7 @@ class DeliveryMethodController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(DeliveryMethod $deliveryMethod)
+    public function show(UserPaymentCard $userPaymentCard)
     {
         //
     }
@@ -41,7 +43,7 @@ class DeliveryMethodController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(DeliveryMethod $deliveryMethod)
+    public function edit(UserPaymentCard $userPaymentCard)
     {
         //
     }
@@ -49,7 +51,7 @@ class DeliveryMethodController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateDeliveryMethodRequest $request, DeliveryMethod $deliveryMethod)
+    public function update(UpdateUserPaymentCardRequest $request, UserPaymentCard $userPaymentCard)
     {
         //
     }
@@ -57,7 +59,7 @@ class DeliveryMethodController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(DeliveryMethod $deliveryMethod)
+    public function destroy(UserPaymentCard $userPaymentCard)
     {
         //
     }
