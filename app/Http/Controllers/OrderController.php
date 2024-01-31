@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Resources\OrderResource;
+use App\Http\Resources\ProductResource;
 use App\Models\Order;
 use App\Http\Requests\StoreOrderRequest;
 use App\Http\Requests\UpdateOrderRequest;
@@ -23,10 +24,26 @@ class OrderController extends Controller
 
     public function store(StoreOrderRequest $request)
     {
-        $sum = 100;
-        $products = Product::query()->limit(2)->get();
+        $sum = [];
+        $products = [];
         $address = UserAddress::find($request->address_id);
-//        dd($products);
+
+        foreach ($request['products'] as $product)
+        {
+            $prod = Product::with('stocks')->find($product['product_id']);
+            if (
+                $prod->stocks()->find($product['stock_id']) &&
+                $prod->stocks()->find($product['stock_id'])->quentity >=$product['quentity']
+            )
+            {
+                $productWithStock = $prod->withStock($product['stock_id']);
+                $productResource = new ProductResource($productWithStock);
+
+                $sum += $productResource['price'];
+                $product[] = $productResource->resolve();
+            }
+        }
+
         auth()->user()->orders()->create([
             'comment' => $request -> comment,
             'delivery_method_id' => $request -> delivery_method_id,
