@@ -24,6 +24,16 @@ class UserSeeder extends Seeder
 
         $admin->roles()->attach(1);
 
+             $customer = User::create([
+               'first_name' => 'customer',
+               'last_name' => 'customer',
+               'email' => 'customer@ecom.uz',
+               'phone' => '123456789',
+               'password' => Hash::make('secret')
+        ]);
+
+        $customer->roles()->attach(2);
+
         User::factory()->count(10)->hasAttached(Role::find(2))->create();
     }
 }

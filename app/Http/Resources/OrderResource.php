@@ -22,6 +22,7 @@ class OrderResource extends JsonResource
             'products' => $this->products,
             'address' => $this->address,
             'payment_type' => $this->paymentType,
+            'status' => $this->status
         ];
     }
 }

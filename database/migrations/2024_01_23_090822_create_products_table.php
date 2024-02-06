@@ -16,7 +16,7 @@ return new class extends Migration
             $table->foreignId('category_id')->constrained()->cascadeOnUpdate()->cascadeOnDelete();
             $table->string('name');
             $table->integer('price');
-            $table->text('description');
+            $table->text('description')->comment('Price of product is stored in sum(not tiyn)');
             $table->timestamps();
             $table->softDeletes();
         });

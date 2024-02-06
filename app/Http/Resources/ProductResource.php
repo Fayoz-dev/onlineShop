@@ -14,11 +14,12 @@ class ProductResource extends JsonResource
             'id' => $this->id,
             'name' => $this->getTranslations('name'),
             'price' => $this->price,
-            'description' => $this->description,
+            'description' => $this->getTranslations('description'),
             'category' => new CategoryResource($this->category),
             'inventory' => StockResource::collection($this->stocks),
             'created_at' => $this->created_at,
-            'updated_at' => $this->updated_at
+            'updated_at' => $this->updated_at,
+             'order_quantity' => $this->when(isset($this->quentity), $this->quentity)
         ];
     }
 }
