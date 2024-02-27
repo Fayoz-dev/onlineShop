@@ -10,6 +10,7 @@ use App\Http\Requests\UpdateOrderRequest;
 use App\Models\Product;
 use App\Models\Stock;
 use App\Models\UserAddress;
+use Illuminate\Http\JsonResponse;
 
 class OrderController extends Controller
 {
@@ -18,9 +19,12 @@ class OrderController extends Controller
         $this->middleware('auth:sanctum');
     }
 
-    public function index()
+    public function index(): JsonResponse
     {
-        return auth()->user()->orders;
+        if (request()->has('status_id')){
+           return $this->response(OrderResource::collection(auth()->user()->orders()->where('status_id', request('status_id'))->paginate(10)));
+        }
+        return $this->response(OrderResource::collection(auth()->user()->orders()->paginate(10)));
     }
 
     public function store(StoreOrderRequest $request)
@@ -41,8 +45,7 @@ class OrderController extends Controller
                 $productResource = new ProductResource($productWithStock);
                 $sum += $productResource['price'];
                 $products[] = $productResource->resolve();
-            }
-            else {
+            } else {
                 $requestProduct['we_have'] = $product->stocks()->find($requestProduct['stock_id'])->quentity;
                 $notFoundProducts [] = $requestProduct;
             }
@@ -55,7 +58,7 @@ class OrderController extends Controller
                 'payment_type_id' => $request->payment_type_id,
                 'address' => $address,
                 'sum' => $sum,
-                'status_id' => in_array($request['payment_type_id'],[1,2]) ? 1:10,
+                'status_id' => in_array($request['payment_type_id'], [1, 2]) ? 1 : 10,
                 'products' => $products
             ]);
             if ($order) {
@@ -65,15 +68,11 @@ class OrderController extends Controller
                     $stock->save();
                 }
             }
-            return 'success';
-        }
-        else {
+            return $this->success('order created',[$order]);
+        } else {
 
-            return response([
-                'success' => false,
-                'message' => 'some products not found or does not have in inventory',
-                'products' => $notFoundProducts,
-            ]);
+            return $this->error('some products not found or does not have in inventory', ['not_found_products' => $notFoundProducts,]);
+
         }
         return 'something went wrong, cant create order';
     }

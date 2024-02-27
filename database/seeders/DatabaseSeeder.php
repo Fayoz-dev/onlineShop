@@ -20,7 +20,8 @@ class DatabaseSeeder extends Seeder
            ProductSeeder::class,
            DeliveryMethodSeeder::class,
            PaymentTypeSeeder::class,
-           StatusSeeder::class
+           StatusSeeder::class,
+           SettingSeeder::class
        ]);
     }
 }

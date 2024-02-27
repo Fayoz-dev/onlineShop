@@ -9,13 +9,14 @@ use Spatie\Translatable\HasTranslations;
 
 class Value extends Model
 {
-    use HasFactory,HasTranslations;
+ use HasFactory, HasTranslations;
 
-    public $translatable = ['name'];
-    protected $fillable = ['name'];
+    protected $fillable = ["name", "added_price"];
 
-    public function attribute():BelongsTo
+    public array $translatable = ["name"];
+
+    public function valueable(): BelongsTo
     {
-        return $this->belongsTo(Attribute::class);
+        return $this->morphTo();
     }
 }

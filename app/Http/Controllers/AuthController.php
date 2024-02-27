@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\LoginRequest;
+use App\Http\Resources\UserResource;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -20,9 +21,10 @@ class AuthController extends Controller
                 'email' => ['The provided credentials are incorrect .']
             ]);
         }
-        return response()->json([
-            'token' => $user->createToken($request->email)->plainTextToken
-        ]);
+        return $this->success('Login Succesfuly',['token' => $user->createToken($request->email)->plainTextToken]);
+//        return response()->json([
+//            'token' => $user->createToken($request->email)->plainTextToken
+//        ]);
     }
 
     public function register()
@@ -35,8 +37,13 @@ class AuthController extends Controller
 
     }
 
+    public function changePassword()
+    {
+        
+    }
+
     public function user(Request $request)
     {
-        return $request->user();
+        return $this->response(new UserResource($request->user()));
     }
 }
