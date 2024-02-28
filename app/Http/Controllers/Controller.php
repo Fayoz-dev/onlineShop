@@ -29,13 +29,13 @@ class Controller extends BaseController
         ]);
     }
 
-    public function success(string $message = null, array $date = null): JsonResponse
-    {
-        return response()->json([
-            'success' => true,
-            'status' => 'success',
-            'message' => $message ?? 'operation success',
-            'date' => $date,
-        ]);
-    }
+       public function success(string $message = null, $data = null): JsonResponse
+        {
+            return response()->json([
+                'success' => true,
+                'status' => 'success',
+                'message' => $message ?? 'operation successfull',
+                'data' => $data,
+            ]);
+        }
 }
