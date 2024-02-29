@@ -21,7 +21,8 @@ class DatabaseSeeder extends Seeder
            DeliveryMethodSeeder::class,
            PaymentTypeSeeder::class,
            StatusSeeder::class,
-           SettingSeeder::class
+           SettingSeeder::class,
+           PaymentCardTypeSeeder::class
        ]);
     }
 }

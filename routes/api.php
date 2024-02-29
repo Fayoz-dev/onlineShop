@@ -6,6 +6,7 @@ use App\Http\Controllers\CategoryProductController;
 use App\Http\Controllers\DeliveryMethodController;
 use App\Http\Controllers\FavoriteController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\PaymentCardTypeController;
 use App\Http\Controllers\PaymentTypeController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProductReviewController;
@@ -16,7 +17,6 @@ use App\Http\Controllers\StatusOrderController;
 use App\Http\Controllers\UserAddressController;
 use App\Http\Controllers\UserPaymentCardController;
 use App\Http\Controllers\UserSettingController;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 Route::post('login', [AuthController::class, 'login']);
@@ -27,18 +27,21 @@ Route::get('user', [AuthController::class, 'user'])->middleware('auth:sanctum');
 
 Route::apiResources([
     'orders' => OrderController::class,
-    'statuses' => StatusController::class,
     'reviews' => ReviewController::class,
+    'statuses' => StatusController::class,
     'products' => ProductController::class,
+    'settings' => SettingController::class,
     'favorites' => FavoriteController::class,
     'categories' => CategoryController::class,
     'payment-types' => PaymentTypeController::class,
     'user-addresses' => UserAddressController::class,
+    'user-settings' => UserSettingController::class,
     'statuses.orders' => StatusOrderController::class,
-    'delivery-methods' => DeliveryMethodController::class,
-    'user-payment-cards' => UserPaymentCardController::class,
-    'categories.products' => CategoryProductController::class,
     'products.reviews' => ProductReviewController::class,
-    'settings' => SettingController::class,
-    'user-settings' => UserSettingController::class
+    'delivery-methods' => DeliveryMethodController::class,
+    'categories.products' => CategoryProductController::class,
+    'user-payment-cards' => UserPaymentCardController::class,
+    'payment-card-types' => PaymentCardTypeController::class,
+
 ]);
+
