@@ -12,9 +12,19 @@ class Category extends Model
 {
     use HasFactory,HasTranslations, SoftDeletes;
 
-    protected $fillable = ['name','icon','order'];
+    protected $fillable = ['name','icon','order','parent_id'];
 
     public $translatable = ['name'];
+
+    public function childCategories()
+    {
+        return $this->hasMany(self::class,'parent_id','id');
+    }
+
+    public function ParentCategory()
+    {
+       return $this->belongsTo(self::class,'parent_id','id');
+    }
 
     public function products(): HasMany
     {
