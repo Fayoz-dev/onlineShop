@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CategoryProductController;
 use App\Http\Controllers\DeliveryMethodController;
@@ -18,12 +17,6 @@ use App\Http\Controllers\UserAddressController;
 use App\Http\Controllers\UserPaymentCardController;
 use App\Http\Controllers\UserSettingController;
 use Illuminate\Support\Facades\Route;
-
-Route::post('login', [AuthController::class, 'login']);
-Route::post('logout', [AuthController::class, 'logout']);
-Route::post('register', [AuthController::class, 'register']);
-Route::post('change-password', [AuthController::class,'changePassword']);
-Route::get('user', [AuthController::class, 'user'])->middleware('auth:sanctum');
 
 Route::apiResources([
     'orders' => OrderController::class,
