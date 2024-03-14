@@ -21,6 +21,7 @@ return new class extends Migration
             $table->unsignedBigInteger('sum');
             $table->json('products');
             $table->text('address')->nullable();
+            $table->softDeletes();
             $table->timestamps();
         });
     }

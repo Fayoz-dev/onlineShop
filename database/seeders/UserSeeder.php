@@ -14,7 +14,7 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
-        $admin = User::create([
+      $user = User::create([
                'first_name' => 'Admin',
                'last_name' => 'Admin',
                'email' => 'admin@ecom.uz',
@@ -22,18 +22,48 @@ class UserSeeder extends Seeder
                'password' => Hash::make('secret')
         ]);
 
-        $admin->roles()->attach(1);
+        $user->assignRole('admin');
 
-             $customer = User::create([
+         $user = User::create([
+            'first_name' => 'Setora',
+            'last_name' => 'Qobilova',
+            'email' => 'setora0877@gmail.com',
+            'phone' => '+9999989998',
+            'password' => Hash::make('password'),
+        ]);
+         $user->assignRole('editor');
+
+         $user = User::create([
+            'first_name' => 'Sanjar',
+            'last_name' => 'Eshqobilov',
+            'email' => 'sanja@gmail.com',
+            'phone' => '+99999389998',
+            'password' => Hash::make('password'),
+        ]);
+         $user->assignRole('shop-manager');
+
+         $user = User::create([
+            'first_name' => 'Jamila',
+            'last_name' => 'Toirova',
+            'email' => 'jamila@gmail.com',
+            'phone' => '+9567389998',
+            'password' => Hash::make('password'),
+        ]);
+         $user->assignRole('helpdesk-support');
+
+        $user = User::create([
                'first_name' => 'customer',
                'last_name' => 'customer',
                'email' => 'customer@ecom.uz',
                'phone' => '123456789',
                'password' => Hash::make('secret')
         ]);
+          $user->assignRole('customer');
 
-        $customer->roles()->attach(2);
-
-        User::factory()->count(10)->hasAttached(Role::find(2))->create();
+        $users = User::factory()->count(10)->create();
+        foreach ($users as $user){
+            $user->assignRole('customer');
+        }
     }
 }
+
