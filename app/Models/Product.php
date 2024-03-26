@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Carbon;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
@@ -47,5 +48,22 @@ class Product extends Model
     public function photos(): MorphMany
     {
         return $this->morphMany(Photo::class, 'photoable');
+    }
+
+     public function discount()
+    {
+        return $this->hasOne(Discount::class);
+    }
+
+    public function getDiscount()
+    {
+        if ($this->discount) {
+            if ($this->discount->from === null && $this->discount->to === null) {
+                return $this->discount;
+            }
+            if (Carbon::now()->between(Carbon::parse($this->discount->from), Carbon::parse($this->discount->to))) {
+                return $this->discount;
+            }
+        }
     }
 }
