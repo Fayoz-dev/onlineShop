@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Resources\OrderResource;
 use App\Http\Resources\ProductResource;
+use App\Models\DeliveryMethod;
 use App\Models\Order;
 use App\Http\Requests\StoreOrderRequest;
 use App\Http\Requests\UpdateOrderRequest;
@@ -34,6 +35,7 @@ class OrderController extends Controller
         $products = [];
         $notFoundProducts = [];
         $address = UserAddress::find($request->address_id);
+        $deliveryMethod = DeliveryMethod::findOrFail($request->delivery_method_id);
 
         foreach ($request['products'] as $requestProduct) {
             $product = Product::with('stocks')->findOrFail($requestProduct['product_id']);
@@ -51,6 +53,8 @@ class OrderController extends Controller
                 $notFoundProducts [] = $requestProduct;
             }
         }
+
+        $sum += $deliveryMethod->sum;
 
         if ($notFoundProducts === [] && $products !== [] && $sum !== 0) {
             $order = auth()->user()->orders()->create([
