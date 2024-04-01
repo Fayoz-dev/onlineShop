@@ -8,12 +8,10 @@ use Illuminate\Auth\Access\Response;
 
 class RolePolicy
 {
-    /**
-     * Determine whether the user can view any models.
-     */
+
     public function viewAny(User $user): bool
     {
-        //
+         return $user->can('role:viewAny');
     }
 
     /**
@@ -21,7 +19,7 @@ class RolePolicy
      */
     public function view(User $user, Role $role): bool
     {
-        //
+
     }
 
     /**
